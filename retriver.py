@@ -12,5 +12,5 @@ def retriver_docs(vectorestore,question):
     """
     retriver=vectorestore.as_retriever(search_kwarg={"k":3})
     # Perform semantic search
-    docs = retriver.get_relevant_documents(question)
+    docs = retriver.invoke(question)
     return docs
