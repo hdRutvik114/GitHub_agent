@@ -3,7 +3,7 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 llm=ChatGoogleGenerativeAI(model="gemini-3.1-flash-lite-preview")
 
-def query(question,docs,history):
+def query(question,docs):
     context="\n\n".join([d.page_content for d in docs[:4]])
     parser=StrOutputParser()
     promt=PromptTemplate(
@@ -12,13 +12,13 @@ def query(question,docs,history):
     Instructions:
     - Answer ONLY using the provided code context
     - Be specific and technical
-    - If not found, say: "Not found in the repository"
+    - If not found, say: " check for tools ..if no tools then say what it needs to be searched
+    "
   
     
     Code Context:
     {context}
-    
-    The History of our convo:{history}
+
     
     Question:
     {question}
@@ -27,6 +27,6 @@ def query(question,docs,history):
     
     
     
-    ans=chain.invoke({"context":context,"question":question,"history":history})
+    ans=chain.invoke({"context":context,"question":question})
     return ans
     
